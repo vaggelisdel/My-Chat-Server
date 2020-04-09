@@ -89,6 +89,9 @@ io.on('connection', function (socket) {
         });
     });
 
+    socket.on('disconnect', function () {
+        console.log('User ' + socket.id + ' disconnected!');
+    });
 });
 
 // catch 404 and forward to error handler
