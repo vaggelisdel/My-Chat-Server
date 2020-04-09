@@ -15,6 +15,9 @@ const userSchema = new Schema(
         socketID: {
             type: String
         },
+        active: {
+            type: Boolean, default: false
+        },
         registerDate: { type : Date, default: Date.now }
     }
 );
