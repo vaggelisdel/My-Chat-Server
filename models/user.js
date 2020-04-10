@@ -18,7 +18,10 @@ const userSchema = new Schema(
         active: {
             type: Boolean, default: false
         },
-        registerDate: { type : Date, default: Date.now }
+        lastActive: {
+            type: String, default: ""
+        },
+        registerDate: {type: Date, default: Date.now}
     }
 );
 

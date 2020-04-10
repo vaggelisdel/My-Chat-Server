@@ -36,7 +36,7 @@ io.on('connection', function (socket) {
 
     socket.on("connectUser", function (data) {
         var query = {email: data.email};
-        var valueUpdate = {$set: {socketID: socket.id, active: true}};
+        var valueUpdate = {$set: {socketID: socket.id, active: true, lastActive: ""}};
         User.updateMany(query, valueUpdate, function (err, res) {
             if (err) {
                 console.log("update document error");
@@ -94,7 +94,7 @@ io.on('connection', function (socket) {
     socket.on('disconnect', function () {
         console.log("Disconnected: " + socket.id)
         var query = {socketID: socket.id};
-        var valueUpdate = {$set: {active: false}};
+        var valueUpdate = {$set: {active: false, lastActive: Date.now()}};
         User.updateMany(query, valueUpdate, function (err, res) {
             if (err) {
                 console.log("update document error");
@@ -102,7 +102,8 @@ io.on('connection', function (socket) {
         });
         socket.broadcast.emit('disconnectedUser', {
             socketID: socket.id,
-            active: false
+            active: false,
+            lastActive: Date.now()
         });
     });
 });
